@@ -22,7 +22,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
  */
 const typeOf = function (data) {
     const objectConstructor = {}.constructor;
-    if (data.constructor === objectConstructor) {
+    if (data && data !== null && data.constructor === objectConstructor) {
         return "OBJECT";
     } else {
         return "";
@@ -44,7 +44,7 @@ function jsonSort(data, sort) {
         newData = {};
 
     if (!sort)
-        sort = false;
+        sort = true;
 
     keys = Object.keys(data).sort();
 

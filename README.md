@@ -54,6 +54,8 @@ Output will be -
 
 ### Versions
 
++ `v1.0.1`
+     + Bug Fixed : data null checks & default true fix
 +  `v1.0.0`
 	 + Initial release - containing basic `sort` function only.
 
