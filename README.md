@@ -1,5 +1,5 @@
   
-# json-key-sort  
+# json-keys-sort  
   
 > Sorting a json object based on keys either ascending or descending & even recursively  
   
@@ -8,7 +8,7 @@
   > Note : focus on **keys** not values
 
 ~~~~  
-const json = require('json-key-sort');  
+const json = require('json-keys-sort');  
 var data = {  
                "zoho": 4,  
                "drake": 2,  
@@ -54,7 +54,7 @@ Output will be -
 
 ### Versions
 
-+  `v0.9.0`
++  `v1.0.0`
 	 + Initial release - containing basic `sort` function only.
 
 > Pull requests are always welcomed (kindly sign commits with GPG keys. **THANKS**)

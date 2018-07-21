@@ -1,11 +1,11 @@
 {
-  "name": "json-key-sort",
-  "version": "0.9.0",
+  "name": "json-keys-sort",
+  "version": "1.0.0",
   "description": "Sorting a json object based on keys either ascending or descending & even recursively",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DawnImpulse/json-key-sort-js.git"
+    "url": "https://github.com/DawnImpulse/json-keys-sort-js.git"
   },
   "keywords": [
     "json",
