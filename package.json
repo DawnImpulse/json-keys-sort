@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "Sorting a json object based on keys either ascending or descending & even recursively",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha index.test.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/DawnImpulse/json-keys-sort-js.git"
@@ -15,5 +18,9 @@
     "key-sort-json"
   ],
   "author": "DawnImpulse",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "4.1.2",
+    "mocha": "5.2.0"
+  }
 }

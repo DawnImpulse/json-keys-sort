@@ -1,6 +1,6 @@
   
 # json-keys-sort  
-  
+[![Build Status](https://travis-ci.org/DawnImpulse/json-keys-sort.svg?branch=master)](https://travis-ci.org/DawnImpulse/json-keys-sort)  
 > Sorting a json object based on keys either ascending or descending & even recursively  
   
   
@@ -54,6 +54,9 @@ Output will be -
 
 ### Versions
 
++ `v1.1.0`
+     + Bug Fixed : descending sort fix
+     + Improvement: auto build testing via travis-ci
 + `v1.0.1`
      + Bug Fixed : data null checks & default true fix
 +  `v1.0.0`

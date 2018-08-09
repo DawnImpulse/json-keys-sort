@@ -43,7 +43,7 @@ function jsonSort(data, sort) {
         keys,
         newData = {};
 
-    if (!sort)
+    if (sort === undefined)
         sort = true;
 
     keys = Object.keys(data).sort();
