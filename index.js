@@ -22,8 +22,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
  */
 const typeOf = function (data) {
     const objectConstructor = {}.constructor;
+    const arrayConstructor = [].constructor;
+    const stringConstructor = 'test'.constructor;
     if (data && data !== null && data.constructor === objectConstructor) {
         return "OBJECT";
+    } else if (data && data !== null && data.constructor === arrayConstructor) {
+        return "ARRAY";
+    } else if (data && data !== null && data.constructor === stringConstructor) {
+        return "STRING";
     } else {
         return "";
     }
@@ -39,30 +45,51 @@ const typeOf = function (data) {
  * @return {{}} - a sorted json object
  */
 function jsonSort(data, sort) {
-    var newKeys = [],
-        keys,
-        newData = {};
+    if (typeOf(data) === "ARRAY") {
+        let newData = [];
+        for (let w = 0; w < data.length; w++) {
+            let d = data[w];
+            if (typeOf(d) === "OBJECT" || typeOf(d) === "ARRAY")
+                newData.push(jsonSort(d, sort));
+            else
+                newData.push(d)
+        }
+        return newData
+    } else {
+        let newKeys = [],
+            keys,
+            newData = {};
 
-    if (sort === undefined)
-        sort = true;
+        if (sort === undefined)
+            sort = true;
 
-    keys = Object.keys(data).sort();
+        keys = Object.keys(data).sort();
 
-    if (!sort) {
-        for (var i = keys.length - 1; i >= 0; i--)
-            newKeys.push(keys[i])
-        keys = newKeys
+        if (!sort) {
+            for (let i = keys.length - 1; i >= 0; i--)
+                newKeys.push(keys[i])
+            keys = newKeys
+        }
+
+        for (let j = 0; j < keys.length; j++) {
+            let key = keys[j];
+            if (typeOf(data[key]) === "OBJECT")
+                newData[key] = jsonSort(data[key], sort);
+            else if (typeOf(data[key]) === "ARRAY") {
+                newData[key] = [];
+                for (let k = 0; k < data[key].length; k++) {
+                    let d = data[key][k];
+                    if (typeOf(d) === "OBJECT" || typeOf(d) === "ARRAY")
+                        newData[key].push(jsonSort(data[key][k], sort));
+                    else
+                        newData[key].push(data[key][k])
+                }
+            } else
+                newData[key] = data[key]
+        }
+
+        return newData
     }
-
-    for (var j = 0; j < keys.length; j++) {
-        var key = keys[j];
-        if (typeOf(data[key]) === "OBJECT")
-            newData[key] = jsonSort(data[key], sort);
-        else
-            newData[key] = data[key]
-    }
-
-    return newData
 }
 
 // exporting with name as sort

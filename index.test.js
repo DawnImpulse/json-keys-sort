@@ -204,7 +204,7 @@ describe('asc & desc tests', () => {
         describe('1. sorting json with no nesting', () => {
             let sorted;
             before(() => {
-                sorted = index.sort(json0,false);
+                sorted = index.sort(json0, false);
             });
             it('should have 4 keys', function () {
                 Object.keys(sorted).should.have.lengthOf(4)
@@ -220,7 +220,7 @@ describe('asc & desc tests', () => {
         describe('2. sorting json with single nested key', () => {
             let sorted;
             before(() => {
-                sorted = index.sort(json1,false)
+                sorted = index.sort(json1, false)
             });
             it('should have 4 keys', function () {
                 Object.keys(sorted).should.have.lengthOf(4)
@@ -248,7 +248,7 @@ describe('asc & desc tests', () => {
         describe('3. sorting json with 2 nesting in a key', () => {
             let sorted;
             before(() => {
-                sorted = index.sort(json2,false)
+                sorted = index.sort(json2, false)
             });
             it('should have 4 keys', function () {
                 Object.keys(sorted).should.have.lengthOf(4)
@@ -288,7 +288,7 @@ describe('asc & desc tests', () => {
         describe('4. sorting json with 3 nesting in a key', () => {
             let sorted;
             before(() => {
-                sorted = index.sort(json3,false)
+                sorted = index.sort(json3, false)
             });
             it('should have 4 keys', function () {
                 Object.keys(sorted).should.have.lengthOf(4)
@@ -337,4 +337,50 @@ describe('asc & desc tests', () => {
             });
         });
     });
+});
+
+describe('json array tests', () => {
+
+    describe('sorting json array with json object', () => {
+
+        let array = [
+            {
+                zebra: 1,
+                apple: 2
+            },
+            {
+                yellow: {
+                    goat: 6,
+                    boy: 8
+                },
+                goat: [
+                    {
+                        dear: 3,
+                        abe: 4
+                    }
+                ]
+            }
+        ];
+        let result;
+
+        before(() => {
+            result = index.sort(array)
+        });
+
+        it('expect object 0 key 0 to be apple', function () {
+            expect(Object.keys(result[0])[0]).to.be.equal("apple")
+        });
+
+        it('expect object 1.1 key 0 to be boy', function () {
+            let key = Object.keys(result[1])[1];
+            let obj = result[1][key];
+            expect(Object.keys(obj)[0]).to.be.equal("boy")
+        });
+
+        it('expect object 1.0 [0] key 0 to be abe', function () {
+            let key = Object.keys(result[1])[0];
+            let obj = result[1][key];
+            expect(Object.keys(obj[0])[0]).to.be.equal("abe")
+        });
+    })
 });

@@ -54,6 +54,8 @@ Output will be -
 
 ### Versions
 
++ `v1.2.0`
+    + Improvement : json array support
 + `v1.1.0`
      + Bug Fixed : descending sort fix
      + Improvement: auto build testing via travis-ci
