@@ -1,5 +1,7 @@
 const chai = require('chai');
-const index = require('./index');
+const rewire = require("rewire");
+const index = require('../index');
+const main = rewire('../index');
 const expect = chai.expect;
 chai.should();
 
@@ -357,9 +359,11 @@ describe('json array tests', () => {
                     {
                         dear: 3,
                         abe: 4
-                    }
+                    },
+                    "some string"
                 ]
-            }
+            },
+            "some data"
         ];
         let result;
 
@@ -377,10 +381,41 @@ describe('json array tests', () => {
             expect(Object.keys(obj)[0]).to.be.equal("boy")
         });
 
+        it('expect object 1.1 key 1 to be string', function () {
+            const key = Object.keys(result[1])[0];
+            const actual = result[1][key][1];
+            expect(actual).to.equal("some string")
+        });
+
         it('expect object 1.0 [0] key 0 to be abe', function () {
             let key = Object.keys(result[1])[0];
             let obj = result[1][key];
             expect(Object.keys(obj[0])[0]).to.be.equal("abe")
         });
+
+        it('expect key 2 to be a string', function () {
+            expect(result[2]).to.equal("some data")
+        });
     })
+});
+
+describe('sort()', () => {
+    it('given invalid object : should throw error', function () {
+        const given = "string";
+        try {
+            const should = index.sort(given);
+            expect.fail(should);
+        } catch (e) {
+            expect(e.toString()).to.equal("Error: must be an object/array")
+        }
+    });
+});
+
+describe('typeOf()', () => {
+
+    it('given any string : should return STRING', function () {
+        const given = "any thing";
+        const should = main.__get__("typeOf")(given);
+        expect(should).to.equal("STRING");
+    });
 });

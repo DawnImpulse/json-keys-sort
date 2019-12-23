@@ -1,10 +1,12 @@
 # json-keys-sort    
-[![Build Status](https://travis-ci.org/DawnImpulse/json-keys-sort.svg?branch=master)](https://travis-ci.org/DawnImpulse/json-keys-sort) ![wait-loop](https://img.shields.io/npm/dt/json-keys-sort.svg)
+[![Build Status](https://travis-ci.org/DawnImpulse/json-keys-sort.svg?branch=master)](https://travis-ci.org/DawnImpulse/json-keys-sort) [![Coverage Status](https://coveralls.io/repos/github/DawnImpulse/json-keys-sort/badge.svg?branch=master)](https://coveralls.io/github/DawnImpulse/json-keys-sort?branch=master) ![wait-loop](https://img.shields.io/npm/dt/json-keys-sort.svg)
  > Sorting a json object based on keys either ascending or descending & even recursively    
 
 ### Latest Changes	
-- Added support for Typescript
- ### Example -   
+- **sort** now throws an error if not provided with an object
+- added support for Typescript
+
+### Example -   
 > Note : focus on **keys** not values  
   
 ~~~~    
@@ -53,6 +55,10 @@ Output will be -
 + The function work recursively and sort all the inner json objects too.  
 
 ### Versions
++ `v2.0.0`
+	+ New : **100%** code coverage
+	+ Improvement : **sort** now throws an error if not provided with an object
+
 + `v1.3.1`
 	+ Bug Fix : Fixed type of parameter in sort function from JSON to object
 

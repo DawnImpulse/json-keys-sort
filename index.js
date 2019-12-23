@@ -45,17 +45,19 @@ const typeOf = function (data) {
  * @return {{}} - a sorted json object
  */
 function jsonSort(data, sort) {
+
     if (typeOf(data) === "ARRAY") {
         let newData = [];
         for (let w = 0; w < data.length; w++) {
             let d = data[w];
             if (typeOf(d) === "OBJECT" || typeOf(d) === "ARRAY")
                 newData.push(jsonSort(d, sort));
-            else
+            else {
                 newData.push(d)
+            }
         }
         return newData
-    } else {
+    } else if (typeOf(data)=== "OBJECT") {
         let newKeys = [],
             keys,
             newData = {};
@@ -90,6 +92,8 @@ function jsonSort(data, sort) {
 
         return newData
     }
+    else
+        throw new Error("must be an object/array")
 }
 
 // exporting with name as sort
