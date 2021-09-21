@@ -1,7 +1,7 @@
 /*
 ISC License
 
-Copyright 2018, Saksham (DawnImpulse)
+Copyright 2021, Saksham Khurana (DawnImpulse)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
 provided that the above copyright notice and this permission notice appear in all copies.
@@ -96,5 +96,25 @@ function jsonSort(data, sort) {
         throw new Error("must be an object/array")
 }
 
+/**
+ * just like normal sort but returns promise
+ * @param data - json to be sorted
+ * @param sort - asc (true) / desc (false)
+ * @return Promise - promise of sorted json object
+ */
+async function jsonSortAsync(data, sort){
+    return new Promise((resolve, reject) => {
+        try{
+            const response = jsonSort(data,sort)
+            resolve(response)
+        }catch (e) {
+            reject(e)
+        }
+    })
+}
+
 // exporting with name as sort
 exports.sort = jsonSort;
+
+// exporting with name as sortAsync
+exports.sortAsync = jsonSortAsync;
