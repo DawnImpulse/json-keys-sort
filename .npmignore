@@ -1,0 +1,15 @@
+# folders
+.idea
+.github
+.nyc_output
+coverage
+test
+exclude
+node_modules
+
+# files
+.gitignore
+.npmignore
+.nycrc.json
+.travis.yml
+yarn.lock
