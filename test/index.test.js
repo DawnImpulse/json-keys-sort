@@ -1,9 +1,11 @@
 const chai = require('chai');
+const chaiAsPromised = require("chai-as-promised")
 const rewire = require("rewire");
 const index = require('../index');
 const main = rewire('../index');
 const expect = chai.expect;
 chai.should();
+chai.use(chaiAsPromised);
 
 describe('asc & desc tests', () => {
     let json0, json1, json2, json3;
@@ -417,5 +419,31 @@ describe('typeOf()', () => {
         const given = "any thing";
         const should = main.__get__("typeOf")(given);
         expect(should).to.equal("STRING");
+    });
+});
+
+describe('sortAsync', () => {
+
+    it('given invalid object : should be rejected', function () {
+        const given = "string";
+        return index.sortAsync(given).should.be.rejected;
+    });
+
+    describe('given valid object : should sort successfully',  function () {
+        const given = {d: 1, a: 0};
+        let result;
+
+        before(async () => {
+            result = await index.sortAsync(given)
+        })
+
+        it('expect key 1 to be a', function () {
+            expect(Object.keys(result)[0]).to.equal("a")
+        });
+
+        it('expect key 2 to be d', function () {
+            expect(Object.keys(result)[1]).to.equal("d")
+        });
+
     });
 });
