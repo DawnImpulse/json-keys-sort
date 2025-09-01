@@ -67,6 +67,61 @@ Output will be -
 
 + The function work recursively and sort all the inner json objects too.
 
+### Benchmark
+* You can also run it on your machine
+* Clone project
+* `yarn install`
+* `yarn run benchmark`
+
+Result from my machine :
+```
+=== Machine Details ===
+OS: Node.js 22.14.0 on Darwin 24.6.0
+CPU: Apple M1 Pro
+Memory: 16GB
+Node.js Version: 2.1.4
+=====================
+
+
+=== Shallow Objects ===
+
+=== Benchmarking Sync Shallow small ===
+Shallow small x 4,575,482 ops/sec ±0.66% (94 runs sampled)
+
+=== Benchmarking Sync Shallow medium ===
+Shallow medium x 79,882 ops/sec ±0.89% (96 runs sampled)
+
+=== Benchmarking Sync Shallow large ===
+Shallow large x 2,439 ops/sec ±0.66% (99 runs sampled)
+
+=== Nested Objects ===
+
+=== Benchmarking Sync Nested small ===
+Nested small x 1,199,448 ops/sec ±0.26% (98 runs sampled)
+
+=== Benchmarking Sync Nested medium ===
+Nested medium x 70,191 ops/sec ±1.12% (98 runs sampled)
+
+=== Benchmarking Sync Nested large ===
+Nested large x 3,063 ops/sec ±3.19% (95 runs sampled)
+
+=== Mixed Objects ===
+
+=== Benchmarking Sync Mixed data ===
+Mixed data x 9,585 ops/sec ±0.74% (95 runs sampled)
+
+=== Async Benchmarks ===
+
+=== Benchmarking Async Large Shallow ===
+Large Shallow x 1,698 ops/sec ±0.27% (90 runs sampled)
+
+=== Benchmarking Async Large Nested ===
+Large Nested x 1,002 ops/sec ±0.89% (87 runs sampled)
+
+=== Benchmarking Async Mixed Data ===
+Mixed Data x 2,765 ops/sec ±1.35% (90 runs sampled)
+```
+
 ### Versions
 + `v2.2.0`
   + **sortAsync** : Implemented event loop yielding mechanism
