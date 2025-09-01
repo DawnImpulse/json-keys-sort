@@ -1,6 +1,6 @@
 {
   "name": "json-keys-sort",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Sorting a json object based on keys either ascending or descending & even recursively",
   "main": "index.js",
   "types": "index.d.ts",
