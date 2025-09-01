@@ -1,20 +1,3 @@
-/*
-ISC License
-
-Copyright 2021, Saksham Khurana (DawnImpulse)
-
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
-provided that the above copyright notice and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
-WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.
-*/
-
-// ----- PRIVATE -----
-
 /**
  * Used to check if data type is json or not
  * @param data
@@ -35,11 +18,11 @@ const typeOf = function (data) {
     }
 };
 
-// ------ EXPORT -----
+// ------ PUBLIC FUNCTIONS-----
 
 /**
  * json sorting based on keys
- * > considering data is a json object only (not array or any thing else)
+ * > considering data is a json object only (not array or anything else)
  * @param data - json to be sorted
  * @param sort - asc (true) / desc (false)
  * @return {{}} - a sorted json object
@@ -50,28 +33,15 @@ function jsonSort(data, sort) {
         let newData = [];
         for (let w = 0; w < data.length; w++) {
             let d = data[w];
-            if (typeOf(d) === "OBJECT" || typeOf(d) === "ARRAY")
-                newData.push(jsonSort(d, sort));
-            else {
-                newData.push(d)
-            }
+            if (typeOf(d) === "OBJECT" || typeOf(d) === "ARRAY") newData.push(jsonSort(d, sort));
+            else newData.push(d)
         }
         return newData
-    } else if (typeOf(data)=== "OBJECT") {
-        let newKeys = [],
-            keys,
-            newData = {};
+    } else if (typeOf(data) === "OBJECT") {
+        let keys = Object.keys(data).sort(), newData = {};
 
-        if (sort === undefined)
-            sort = true;
-
-        keys = Object.keys(data).sort();
-
-        if (!sort) {
-            for (let i = keys.length - 1; i >= 0; i--)
-                newKeys.push(keys[i])
-            keys = newKeys
-        }
+        if (sort === undefined) sort = true;
+        if (!sort) keys = keys.reverse();
 
         for (let j = 0; j < keys.length; j++) {
             let key = keys[j];
@@ -91,26 +61,55 @@ function jsonSort(data, sort) {
         }
 
         return newData
-    }
-    else
+    } else
         throw new Error("must be an object/array")
 }
 
 /**
- * just like normal sort but returns promise
+ * Truly async version that yields to event loop during iterations
  * @param data - json to be sorted
  * @param sort - asc (true) / desc (false)
  * @return Promise - promise of sorted json object
  */
-async function jsonSortAsync(data, sort){
-    return new Promise((resolve, reject) => {
-        try{
-            const response = jsonSort(data,sort)
-            resolve(response)
-        }catch (e) {
-            reject(e)
+async function jsonSortAsync(data, sort) {
+    if (typeOf(data) === "ARRAY") {
+        let newData = [];
+        for (let w = 0; w < data.length; w++) {
+            await new Promise(resolve => process.nextTick(resolve));
+            let d = data[w];
+            if (typeOf(d) === "OBJECT" || typeOf(d) === "ARRAY")
+                newData.push(await jsonSortAsync(d, sort));
+            else
+                newData.push(d);
         }
-    })
+        return newData;
+    } else if (typeOf(data) === "OBJECT") {
+        let keys = Object.keys(data).sort(), newData = {};
+
+        if (sort === undefined) sort = true;
+        if (!sort) keys = keys.reverse();
+
+        for (let j = 0; j < keys.length; j++) {
+            await new Promise(resolve => process.nextTick(resolve));
+            let key = keys[j];
+            if (typeOf(data[key]) === "OBJECT")
+                newData[key] = await jsonSortAsync(data[key], sort);
+            else if (typeOf(data[key]) === "ARRAY") {
+                newData[key] = [];
+                for (let k = 0; k < data[key].length; k++) {
+                    await new Promise(resolve => process.nextTick(resolve));
+                    let d = data[key][k];
+                    if (typeOf(d) === "OBJECT" || typeOf(d) === "ARRAY")
+                        newData[key].push(await jsonSortAsync(data[key][k], sort));
+                    else
+                        newData[key].push(data[key][k]);
+                }
+            } else
+                newData[key] = data[key];
+        }
+        return newData;
+    } else
+        throw new Error("must be an object/array");
 }
 
 // exporting with name as sort
