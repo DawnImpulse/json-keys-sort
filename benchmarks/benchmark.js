@@ -2,6 +2,15 @@
 const testData = require('./testData');
 const index = require('../index');
 const Benchmark = require('benchmark');
+const os = require('os');
+const process = require("benchmark");
+
+console.log('=== Machine Details ===');
+console.log(`OS: ${process.platform} ${os.release()}`);
+console.log(`CPU: ${os.cpus()[0].model}`);
+console.log(`Memory: ${Math.round(os.totalmem() / (1024 * 1024 * 1024))}GB`);
+console.log(`Node.js Version: ${process.version}`);
+console.log('=====================\n');
 
 function runBenchmark(data, name) {
     return new Promise((resolve) => {
