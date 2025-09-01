@@ -1,6 +1,6 @@
 {
   "name": "json-keys-sort",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Sorting a json object based on keys either ascending or descending & even recursively",
   "main": "index.js",
   "types": "index.d.ts",
@@ -25,15 +25,15 @@
     "json-sorting",
     "json-key-sorting"
   ],
-  "author": "DawnImpulse",
-  "license": "ISC",
+  "author": "Codevry Labs (Saksham Khurana)",
+  "license": "MIT",
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "chai": "4.2.0",
     "chai-as-promised": "^7.1.1",
     "coveralls": "3.0.9",
     "mocha": "6.2.2",
     "nyc": "15.0.0",
     "rewire": "4.0.1"
-  },
-  "dependencies": {}
+  }
 }
