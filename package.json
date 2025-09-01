@@ -5,6 +5,8 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
+    "benchmark": "node benchmarks/benchmark.js",
+    "release": "commit-and-tag-version",
     "test": "mocha",
     "test:coverage": "nyc npm test",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
@@ -31,6 +33,7 @@
     "benchmark": "^2.1.4",
     "chai": "4.2.0",
     "chai-as-promised": "^7.1.1",
+    "commit-and-tag-version": "^12.6.0",
     "coveralls": "3.0.9",
     "mocha": "6.2.2",
     "nyc": "15.0.0",
